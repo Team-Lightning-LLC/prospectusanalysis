@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CIRO Prospectus Intelligence Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #0052a3;
+            --secondary: #00a86b;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --border: #e1e5e9;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,28 +26,29 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            line-height: 1.6;
+            color: var(--dark);
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 20px;
         }
 
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            color: white;
+            background: white;
+            border-radius: 16px;
             padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .header::before {
@@ -42,82 +57,80 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
+            height: 4px;
+            background: var(--gradient);
         }
 
         .header h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: -1px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
         }
 
         .header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-            font-weight: 300;
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 400;
         }
 
-        .header .badge {
+        .badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 15px;
-            font-size: 0.9em;
-            backdrop-filter: blur(10px);
+            background: var(--gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
         }
 
-        .main-content {
+        /* Upload Section */
+        .upload-card {
+            background: white;
+            border-radius: 16px;
             padding: 50px;
-        }
-
-        .upload-section {
-            border: 3px dashed #3498db;
-            border-radius: 12px;
-            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
             text-align: center;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px dashed var(--border);
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        .upload-section::before {
-            content: '📊';
-            font-size: 4em;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .upload-section:hover {
-            border-color: #2980b9;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        .upload-card:hover {
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
 
-        .upload-section h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+        .upload-card.dragover {
+            border-color: var(--primary);
+            background: #f0f8ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .upload-card h3 {
+            font-size: 1.5rem;
             font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
         }
 
-        .upload-section p {
-            color: #5a6c7d;
-            font-size: 1.1em;
-            margin-bottom: 25px;
+        .upload-card p {
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
 
+        /* File Input */
         .file-input {
-            margin: 25px 0;
+            position: relative;
+            margin-bottom: 20px;
         }
 
         .file-input input[type="file"] {
@@ -126,71 +139,74 @@
 
         .file-input label {
             display: inline-block;
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient);
             color: white;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .file-input label:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
+        .file-selected {
+            background: var(--secondary) !important;
+        }
+
+        /* Analyze Button */
         .analyze-btn {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             color: white;
             border: none;
-            padding: 18px 50px;
-            font-size: 1.2em;
-            border-radius: 8px;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            margin: 20px auto;
             display: block;
-            margin: 40px auto;
         }
 
-        .analyze-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        .analyze-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
         .analyze-btn:disabled {
             background: #bdc3c7;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none;
         }
 
-        .results-section {
-            margin-top: 50px;
+        /* Loading */
+        .loading {
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
             display: none;
         }
 
-        .loading {
-            text-align: center;
-            padding: 60px;
-            background: #f8f9fa;
-            border-radius: 12px;
-        }
-
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -198,40 +214,74 @@
             100% { transform: rotate(360deg); }
         }
 
-        .analysis-results {
-            background: #f8f9fa;
-            border-radius: 12px;
+        /* Results */
+        .results {
+            background: white;
+            border-radius: 16px;
             padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: none;
         }
 
-        .analysis-results h3 {
-            color: #2c3e50;
-            font-size: 2.2em;
+        .results h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
             margin-bottom: 30px;
             text-align: center;
-            font-weight: 300;
+            color: var(--dark);
         }
 
-        .fund-data {
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .data-card {
-            background: white;
+            background: var(--light);
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-left: 5px solid #3498db;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
         }
 
         .data-card h4 {
-            color: #2c3e50;
-            font-size: 1.1em;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -241,289 +291,365 @@
             line-height: 1.6;
         }
 
-        .data-card.risk {
-            border-left-color: #e74c3c;
-        }
+        .data-card.risk { border-left-color: var(--danger); }
+        .data-card.performance { border-left-color: var(--secondary); }
+        .data-card.warning { border-left-color: var(--warning); }
 
-        .data-card.compliance {
-            border-left-color: #f39c12;
-        }
-
-        .data-card.performance {
-            border-left-color: #27ae60;
-        }
-
-        .key-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .metric {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .metric .value {
-            font-size: 2em;
-            font-weight: 700;
-            color: #2c3e50;
-            display: block;
-        }
-
-        .metric .label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .compliance-flags {
+        /* Compliance Flags */
+        .compliance-section {
             background: #fff5f5;
             border: 2px solid #fed7d7;
-            border-radius: 10px;
-            padding: 25px;
+            border-radius: 12px;
+            padding: 30px;
             margin-top: 30px;
         }
 
-        .compliance-flags h4 {
-            color: #e53e3e;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-        }
-
-        .compliance-flags ul {
-            color: #742a2a;
-            line-height: 1.8;
-        }
-
-        .example-section {
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            color: white;
-        }
-
-        .example-section h4 {
+        .compliance-section h4 {
+            color: var(--danger);
+            font-size: 1.3rem;
             margin-bottom: 20px;
-            font-size: 1.4em;
+            font-weight: 600;
         }
 
-        .example-section p {
-            line-height: 1.7;
-            opacity: 0.95;
+        .compliance-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .footer {
-            background: #2c3e50;
+        .compliance-list li {
+            color: #742a2a;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .compliance-list li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: var(--gradient);
             color: white;
-            padding: 30px;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
-        .footer p {
-            opacity: 0.8;
-            line-height: 1.6;
+        .info-section h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-section p {
+            opacity: 0.95;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .upload-card {
+                padding: 30px 20px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Success Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <div class="header-content">
-                <h1>🏛️ CIRO Prospectus Intelligence Engine</h1>
-                <p class="subtitle">Regulatory-Grade Fund Analysis for Compliance Professionals</p>
-                <div class="badge">Canadian Investment Regulatory Organization</div>
-            </div>
+            <h1>🏛️ CIRO Prospectus Intelligence Engine</h1>
+            <p class="subtitle">Advanced Regulatory Analysis for Canadian Investment Compliance</p>
+            <div class="badge">Canadian Investment Regulatory Organization</div>
         </div>
 
-        <div class="main-content">
-            <div class="upload-section">
-                <h3>Upload Fund Prospectus</h3>
-                <p>Upload SEC-registered fund prospectuses for CIRO regulatory intelligence extraction</p>
-                
-                <div class="file-input">
-                    <label for="file-upload">Select Prospectus PDF</label>
-                    <input type="file" id="file-upload" accept=".pdf" single>
-                </div>
-                
-                <p style="font-size: 0.9em; color: #6c757d; margin-top: 15px;">
-                    Supported: Money Market Funds, Mutual Funds, ETFs (PDF format only)
-                </p>
+        <!-- Upload Section -->
+        <div class="upload-card" id="upload-area">
+            <span class="upload-icon">📊</span>
+            <h3>Upload Fund Prospectus</h3>
+            <p>Drag and drop your PDF file here, or click to select</p>
+            
+            <div class="file-input">
+                <label for="file-upload" id="file-label">Select Prospectus PDF</label>
+                <input type="file" id="file-upload" accept=".pdf" />
+            </div>
+            
+            <p style="font-size: 0.85rem; color: #6c757d; margin-top: 15px;">
+                Supported: Money Market Funds, Mutual Funds, ETFs (PDF format only, max 10MB)
+            </p>
+        </div>
+
+        <button class="analyze-btn" id="analyze-btn" onclick="processDocument()">
+            Extract Regulatory Intelligence
+        </button>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h4>🎯 Advanced Regulatory Analysis</h4>
+            <p>Our AI engine extracts 21+ critical compliance data points including 2a-7 alignment, liquidity risk assessment, fee transparency analysis, cross-border regulatory gaps, and material risk identification. Results are formatted for immediate regulatory decision-making.</p>
+        </div>
+
+        <!-- Loading Section -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <h4>Processing Document...</h4>
+            <p>Extracting regulatory intelligence from your prospectus</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results" id="results">
+            <h3>📋 Regulatory Intelligence Report</h3>
+            
+            <div class="metrics-grid" id="metrics">
+                <!-- Metrics will be populated by JavaScript -->
             </div>
 
-            <button class="analyze-btn" onclick="analyzeProspectus()">
-                Extract Regulatory Intelligence
-            </button>
-
-            <div class="example-section">
-                <h4>🎯 Regulatory Focus Areas</h4>
-                <p>This engine extracts 21 critical data points for CIRO compliance evaluation, including 2a-7 alignment, liquidity risk exposure, fee transparency, cross-border regulatory gaps, and material risk factors. Output is designed for immediate regulatory decision-making without boilerplate or retail disclaimers.</p>
+            <div class="data-grid" id="data-cards">
+                <!-- Data cards will be populated by JavaScript -->
             </div>
 
-            <div class="results-section" id="results">
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p style="font-size: 1.1em; color: #5a6c7d;">Processing prospectus for regulatory intelligence...</p>
-                </div>
-                
-                <div class="analysis-results" id="analysis-results">
-                    <h3>📋 VMFXX Regulatory Intelligence Extract</h3>
-                    
-                    <div class="key-metrics">
-                        <div class="metric">
-                            <span class="value">0.11%</span>
-                            <span class="label">Total Expense Ratio</span>
-                        </div>
-                        <div class="metric">
-                            <span class="value">$1.00</span>
-                            <span class="label">Stable NAV</span>
-                        </div>
-                        <div class="metric">
-                            <span class="value">60d</span>
-                            <span class="label">Max Maturity</span>
-                        </div>
-                        <div class="metric">
-                            <span class="value">5.09%</span>
-                            <span class="label">1Y Performance</span>
-                        </div>
-                    </div>
-
-                    <div class="fund-data">
-                        <div class="data-card">
-                            <h4>Fund Structure</h4>
-                            <p><strong>Name:</strong> Vanguard Federal Money Market Fund<br>
-                            <strong>Class:</strong> Investor Shares (VMFXX)<br>
-                            <strong>Type:</strong> Government money market fund under SEC Rule 2a-7<br>
-                            <strong>Objective:</strong> Current income while maintaining liquidity and stable $1 share price</p>
-                        </div>
-
-                        <div class="data-card performance">
-                            <h4>Investment Strategy</h4>
-                            <p>Invests primarily in securities issued by U.S. governmental agencies and instrumentalities. Minimum 80% in government securities, with 99.5% requirement for government money market classification. Dollar-weighted average maturity ≤60 days.</p>
-                        </div>
-
-                        <div class="data-card">
-                            <h4>Manager & Tenure</h4>
-                            <p><strong>Portfolio Manager:</strong> John C. Lanius, Vanguard<br>
-                            <strong>Tenure:</strong> Managing since 2007<br>
-                            <strong>Benchmark:</strong> FTSE 3-Month U.S. Treasury Bill Index<br>
-                            <strong>Minimum Investment:</strong> $3,000 initial</p>
-                        </div>
-
-                        <div class="data-card risk">
-                            <h4>Primary Risk Factors</h4>
-                            <p>• Income risk from declining interest rates<br>
-                            • Manager risk from security selection<br>
-                            • Low/negative interest rate environment risk<br>
-                            • Credit risk from non-backed agency securities<br>
-                            • Repurchase agreement counterparty risk</p>
-                        </div>
-
-                        <div class="data-card">
-                            <h4>Liquidity & Redemption</h4>
-                            <p><strong>Liquidity Fees:</strong> Not subject to mandatory fees<br>
-                            <strong>Settlement:</strong> Same-day for orders before 4 PM ET<br>
-                            <strong>Delays:</strong> Up to 7 calendar days permitted<br>
-                            <strong>In-Kind:</strong> Authorized under certain circumstances</p>
-                        </div>
-
-                        <div class="data-card performance">
-                            <h4>Performance History</h4>
-                            <p><strong>1-Year:</strong> 5.09%<br>
-                            <strong>5-Year:</strong> 1.83%<br>
-                            <strong>10-Year:</strong> 1.21%<br>
-                            <em>Performance as of December 31, 2023</em></p>
-                        </div>
-                    </div>
-
-                    <div class="compliance-flags">
-                        <h4>🚨 CIRO Compliance Red Flags</h4>
-                        <ul>
-                            <li><strong>Government Backing Disclaimer:</strong> Not explicitly backed by U.S. government despite government securities focus</li>
-                            <li><strong>FDIC Insurance:</strong> Not FDIC insured - material disclosure gap</li>
-                            <li><strong>Stable NAV Risk:</strong> No guarantee of maintaining $1.00 per share price</li>
-                            <li><strong>Cross-Border Regulatory Gaps:</strong> Lacks Canada-specific risk considerations and investor protections</li>
-                            <li><strong>CIRO Suitability Language:</strong> Missing specific CIRO suitability requirements beyond standard U.S. disclosures</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #e8f5e8; padding: 25px; border-radius: 10px; margin-top: 30px;">
-                        <h4 style="color: #27ae60; margin-bottom: 15px;">✅ Regulatory Assessment Summary</h4>
-                        <p style="color: #2d5016;">Fund structure complies with 2a-7 requirements. Primary concerns relate to cross-border regulatory harmonization and Canada-specific investor protection disclosures. Recommend review of CIRO suitability language requirements for foreign-domiciled money market funds offered to Canadian investors.</p>
-                    </div>
-                </div>
+            <div class="compliance-section" id="compliance">
+                <h4>🚨 CIRO Compliance Assessment</h4>
+                <ul class="compliance-list" id="compliance-list">
+                    <!-- Compliance items will be populated by JavaScript -->
+                </ul>
             </div>
         </div>
 
         <div class="footer">
-            <p>CIRO Prospectus Intelligence Engine • Regulatory-Grade Analysis Tool<br>
-            Designed for compliance professionals and regulatory decision-making</p>
+            <p>CIRO Prospectus Intelligence Engine • Built for Regulatory Excellence<br>
+            Designed for compliance professionals and institutional decision-making</p>
         </div>
     </div>
 
     <script>
-function analyzeProspectus() {
-    const fileInput = document.getElementById('file-upload');
-    const resultsSection = document.getElementById('results');
-    const loadingDiv = document.getElementById('loading');
-    const resultsDiv = document.getElementById('analysis-results');
-    const analyzeBtn = document.querySelector('.analyze-btn');
+        // Global state
+        let uploadedFile = null;
 
-    // Check if file is uploaded
-    if (fileInput.files.length === 0) {
-        alert('Please upload a prospectus PDF file to analyze.');
-        return;
-    }
+        // DOM Elements
+        const fileInput = document.getElementById('file-upload');
+        const fileLabel = document.getElementById('file-label');
+        const uploadArea = document.getElementById('upload-area');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
 
-    // Show loading state
-    resultsSection.style.display = 'block';
-    loadingDiv.style.display = 'block';
-    resultsDiv.style.display = 'none';
-    analyzeBtn.disabled = true;
-    analyzeBtn.textContent = 'Processing...';
+        // File upload handling
+        fileInput.addEventListener('change', handleFileSelect);
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('dragleave', handleDragLeave);
+        uploadArea.addEventListener('drop', handleFileDrop);
 
-    // 1. Prepare file
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                setSelectedFile(file);
+            }
+        }
 
-    // 2. Send to n8n webhook
-    fetch('https://muinf.app.n8n.cloud/webhook-test/99be3264-ecb1-4abb-910d-85e54e0bb5ed', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('API response:', data);
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        }
 
-        loadingDiv.style.display = 'none';
-        resultsDiv.style.display = 'block';
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = 'Extract Regulatory Intelligence';
-        resultsSection.scrollIntoView({ behavior: 'smooth' });
-    })
-    .catch(error => {
-        console.error('Upload error:', error);
-        alert('An error occurred during upload. Try again.');
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = 'Extract Regulatory Intelligence';
-    });
-}
+        function handleDragLeave(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        }
 
-// Handle file upload display
-document.getElementById('file-upload').addEventListener('change', function(e) {
-    const files = e.target.files;
-    if (files.length > 0) {
-        const fileName = files[0].name;
-        const label = document.querySelector('label[for="file-upload"]');
-        label.textContent = `Selected: ${fileName}`;
-        label.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
-    }
-});
-</script>
+        function handleFileDrop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                setSelectedFile(file);
+                fileInput.files = e.dataTransfer.files;
+            } else {
+                alert('Please upload a PDF file only.');
+            }
+        }
+
+        function setSelectedFile(file) {
+            uploadedFile = file;
+            fileLabel.textContent = `Selected: ${file.name}`;
+            fileLabel.classList.add('file-selected');
+            analyzeBtn.disabled = false;
+        }
+
+        // Main processing function
+        async function processDocument() {
+            if (!uploadedFile) {
+                alert('Please select a PDF file first.');
+                return;
+            }
+
+            // Show loading state
+            showLoading();
+
+            try {
+                const formData = new FormData();
+                formData.append('file', uploadedFile);
+
+                const response = await fetch('/api/process-pdf', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result.data);
+                } else {
+                    throw new Error(result.error || 'Processing failed');
+                }
+
+            } catch (error) {
+                console.error('Processing error:', error);
+                alert(`Processing failed: ${error.message}`);
+                hideLoading();
+            }
+        }
+
+        function showLoading() {
+            loading.style.display = 'block';
+            results.style.display = 'none';
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = 'Processing...';
+            
+            // Smooth scroll to loading section
+            loading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideLoading() {
+            loading.style.display = 'none';
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = 'Extract Regulatory Intelligence';
+        }
+
+        function displayResults(data) {
+            hideLoading();
+            
+            // For demo purposes, show sample data
+            // In production, you'd populate this with actual API response
+            populateSampleResults();
+            
+            results.style.display = 'block';
+            results.classList.add('fade-in');
+            results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function populateSampleResults() {
+            // Sample metrics
+            const metrics = [
+                { value: '0.11%', label: 'Total Expense Ratio' },
+                { value: '$1.00', label: 'Stable NAV' },
+                { value: '60d', label: 'Max Maturity' },
+                { value: '5.09%', label: '1Y Performance' }
+            ];
+
+            const metricsHtml = metrics.map(metric => `
+                <div class="metric-card">
+                    <span class="metric-value">${metric.value}</span>
+                    <span class="metric-label">${metric.label}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('metrics').innerHTML = metricsHtml;
+
+            // Sample data cards
+            const dataCards = [
+                {
+                    title: 'Fund Structure',
+                    content: '<strong>Name:</strong> Vanguard Federal Money Market Fund<br><strong>Class:</strong> Investor Shares (VMFXX)<br><strong>Type:</strong> Government money market fund<br><strong>Objective:</strong> Current income with liquidity',
+                    type: ''
+                },
+                {
+                    title: 'Investment Strategy',
+                    content: 'Invests primarily in U.S. government securities and agencies. Maintains 99.5% government securities requirement with dollar-weighted average maturity ≤60 days.',
+                    type: 'performance'
+                },
+                {
+                    title: 'Risk Assessment',
+                    content: '• Interest rate risk from declining rates<br>• Credit risk from agency securities<br>• Manager selection risk<br>• Counterparty risk in repurchase agreements',
+                    type: 'risk'
+                },
+                {
+                    title: 'Liquidity Profile',
+                    content: '<strong>Settlement:</strong> Same-day for orders before 4 PM ET<br><strong>Delays:</strong> Up to 7 calendar days permitted<br><strong>Fees:</strong> No mandatory liquidity fees',
+                    type: 'warning'
+                }
+            ];
+
+            const cardsHtml = dataCards.map(card => `
+                <div class="data-card ${card.type}">
+                    <h4>${card.title}</h4>
+                    <p>${card.content}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('data-cards').innerHTML = cardsHtml;
+
+            // Sample compliance flags
+            const complianceIssues = [
+                'Government backing disclaimer missing explicit U.S. guarantee language',
+                'FDIC insurance status requires clearer disclosure',
+                'Cross-border regulatory harmonization gaps identified',
+                'CIRO-specific suitability requirements need enhancement',
+                'Stable NAV maintenance risk disclosure could be strengthened'
+            ];
+
+            const complianceHtml = complianceIssues.map(issue => `
+                <li>${issue}</li>
+            `).join('');
+
+            document.getElementById('compliance-list').innerHTML = complianceHtml;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            analyzeBtn.disabled = true;
+            console.log('CIRO Prospectus Intelligence Engine initialized');
+        });
+    </script>
+</body>
+</html>
