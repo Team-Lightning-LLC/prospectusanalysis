@@ -1,0 +1,14 @@
+{
+  "name": "ciro-prospectus-engine",
+  "version": "1.0.0",
+  "description": "CIRO Regulatory Intelligence Extraction Tool",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "formidable": "^3.5.1",
+    "form-data": "^4.0.0"
+  }
+}
