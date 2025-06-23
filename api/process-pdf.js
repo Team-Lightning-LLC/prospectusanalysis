@@ -1,6 +1,6 @@
-import formidable from 'formidable';
-import fs from 'fs';
-import FormData from 'form-data';
+const formidable = require('formidable');
+const fs = require('fs');
+const FormData = require('form-data');
 
 export const config = {
   api: {
@@ -9,7 +9,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  // Enable CORS for development
+  // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -34,10 +34,15 @@ export default async function handler(req, res) {
     const form = formidable({
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB limit
-      uploadDir: '/tmp',
     });
 
-    const [fields, files] = await form.parse(req);
+    const [fields, files] = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        else resolve([fields, files]);
+      });
+    });
+
     console.log('Form parsed successfully');
 
     // Get the uploaded file
